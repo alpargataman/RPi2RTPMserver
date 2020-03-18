@@ -61,3 +61,10 @@ First of all, check all the configuration variables defined in the file **stream
 # ToDo things
 - [ ] Set cover position depending on video dimensions
 - [ ] Better file randomizer
+# Demo files
+- **video.mp4** [Motion Places - Free Stock Video](https://www.pexels.com/@motion-places-free-stock-video-701499)
+- **Jon Worthy and the Bends - You Afraid.mp3** [Free Music Archive: Jon Worthy and the Bends - You Afraid](https://freemusicarchive.org/music/Jon_Worthy_and_the_Bends/Only_A_Dream/You_Afraid)
+- **Mild Wild - Line Spacing.mp3** [Free Music Archive: Mild Wild - Line Spacing](https://freemusicarchive.org/music/Mild_Wild/a_Line_Spacing_b_Say_Goodnight/Line_Spacing)
+- **Robert John - Slinky.mp3** [Free Music Archive: Robert John - Slinky](https://freemusicarchive.org/music/Robert_John/2019041994432122/Slinky_1461)
+
+All video and audio files are used only for educational propuses. No copyright infringment intended. You can check flies liceses on their links.
