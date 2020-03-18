@@ -61,6 +61,8 @@ First of all, check all the configuration variables defined in the file **stream
 # ToDo things
 - [ ] Set cover position depending on video dimensions
 - [ ] Better file randomizer
+# YouTube ended LiveStream test
+[![YouTube ended LiveStream test](https://img.youtube.com/vi/YBMZCERdZpk/0.jpg)](https://www.youtube.com/watch?v=YBMZCERdZpk "YouTube ended LiveStream test")
 # Demo files
 - **video.mp4** [Motion Places - Free Stock Video](https://www.pexels.com/@motion-places-free-stock-video-701499)
 - **Jon Worthy and the Bends - You Afraid.mp3** [Free Music Archive: Jon Worthy and the Bends - You Afraid](https://freemusicarchive.org/music/Jon_Worthy_and_the_Bends/Only_A_Dream/You_Afraid)
