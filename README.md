@@ -1,6 +1,10 @@
 # RPi2RTPMserver
-Some bash script to create an  streaming radio to broadcast some music to YouTube or other RTMP with video and cover
-# Requeriments
+Some bash script to create a streaming radio to broadcast some music to YouTube or other RTMP server with a looping video and the song's cover.
+
+Those files use some tools to make that possible. You have the list with all the tools and their websites in the **Prerequisites** section.
+
+This project need a lot of optimizations and rework to make it easier to configure. Also, there are a lot of features we can add to the project.
+# Prerequisites
 - From repositories
   - [Git](https://git-scm.com/)
   - [FFmpeg](https://www.ffmpeg.org/)
@@ -15,23 +19,45 @@ Some bash script to create an  streaming radio to broadcast some music to YouTub
   - [sacad](https://github.com/desbma/sacad)
 - GitHub
   - [tweet.sh](https://github.com/piroor/tweet.sh)
-# Installing requeriments from repositories
+## Installing prerequisites from repositories
 ```
 sudo apt update && sudo apt install git ffmpeg mplayer vlc python3-pip libimage-exiftool-perl jq nkf pavucontrol -y
 ```
-# Installing sacad
+## Installing sacad
 ```
 sudo pip3 install sacad
 ```
-# Cloning tweet.sh
+## Cloning tweet.sh
 ```
 git clone https://github.com/piroor/tweet.sh
 ```
-# Configuring PulseAudio
-ToDo
+After cloning that repository, you have to copy **tweet.sh** and **tweet.client.key** to the same folder of **play_audio.sh**.
+
+You can get instructions about how to configure tweet.sh in its [GitHub](https://github.com/piroor/tweet.sh).
+## Configuring PulseAudio
+After You Install everything, You have to configure PulseAudio to work properly in Raspbian, so FFmpeg can get the audio from the sound card. To improve performance You have to add a parameter in **/etc/pulse/default.pa** as following. First You have to open the file with a text editor, like **nano**
+```
+sudo nano /etc/pulse/default.pa
+```
+Then You have to find the following lines, You can use **Ctrl+W** to search those lines:
+```
+### Automatically load driver modules depending on the hardware available
+.ifexists module-udev-detect.so
+load-module module-udev-detect
+```
+And add **tsched=0**  in the third line, having this as result:
+```
+### Automatically load driver modules depending on the hardware available
+.ifexists module-udev-detect.so
+load-module module-udev-detect tsched=0
+```
+After that, You should reboot your Raspberry Pi to make sure everything works as expected.
 # Playing songs
-ToDo
+Once You reboot your Raspberry Pi, You can use **play_audio.sh** to start playing songs in the Raspberry Pi. You can define where the songs are in the variable **FOLDER**. The script will look for **mp3** files on that folder and play them with **Mplayer** using a normalizer filter to get always the same volume between files.
 # Running video streamer
-ToDo
+Once You have the player working, It's time to start the video streamer and send the video to your RTMP server. By default, It's configured to send that video to YouTube, but You can change the server URL to stream to other services like Facebook Live, Twitch or Mixer.
+
+First of all, check all the configuration variables defined in the file **stream.sh** and then, run that using the command **./stream.sh**. You can modify the file **marquee.txt** to change the marquee text in the stream.
 # ToDo things
-- [ ] Set cover position depending of video dimensions
+- [ ] Set cover position depending on video dimensions
+- [ ] Better file randomizer
