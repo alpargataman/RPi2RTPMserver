@@ -50,12 +50,13 @@ do
   echo $TITLE >> livetext.txt
 
   # Tweeting what we're playing
-  ./tweet.sh post "NOW PLAYING\n$TITLE\nARTIST: $ARTIST\nALBUM: $ALBUM" &
+  # ./tweet.sh post "NOW PLAYING\n$TITLE\nARTIST: $ARTIST\nALBUM: $ALBUM" &
 
   # Playing file
   echo "Playing  $SONG"
   # ffplay -nodisp -autoexit -af dynaudnorm $SONG &
   # cvlc --play-and-exit $SONG &
+  # If you are using ALSA: -ao alsa:device=hw=1
   mplayer -af volnorm=2:0.05 "$SONG" &
 
   # Deleting old cover
