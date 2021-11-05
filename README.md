@@ -21,7 +21,7 @@ This project need a lot of optimizations and rework to make it easier to configu
   - [tweet.sh](https://github.com/piroor/tweet.sh)
 ## Installing prerequisites from repositories
 ```
-sudo apt update && sudo apt install git ffmpeg mplayer vlc python3-pip libimage-exiftool-perl jq nkf pavucontrol -y
+sudo apt update && sudo apt install git ffmpeg mplayer vlc python3-pip libimage-exiftool-perl jq nkf pavucontrol imagemagick -y
 ```
 ## Installing sacad
 ```
