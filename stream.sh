@@ -9,16 +9,24 @@ RESOLUTION="848x480"                           # Video resolution
 RTMP_URL="rtmp://a.rtmp.youtube.com/live2"     # RTMP server URL
 KEY="xxxx-xxxx-xxxx-xxxx"                      # Stream key
 
+# Use parenthesis to scale the image/text
+# ex_image: y=(100)
+# ex_text: x=(250)
+
 VIDEO="video.mp4"                              # Video path
 IMAGE="image.png"                              # Cover path
+IMAGE_X="25"                                   # X position of cover
+IMAGE_Y="(100)"                                  # Y position of cover
+
 TEXT="livetext.txt"                            # Path to the TXT where the song data is
+TEXT_X="(250)"                                   # X position of the text
+
 MARQUEE="marquee.txt"                          # Path to the TXT with a marquee text
 FONT="FreeSerif.ttf"                           # Path to the font
 FONT_SIZE="20"                                 # Font size
 THREADS="4"                                    # Number of threadsusing to encode video and audio
-THREAD_QUEUE="1024"                            # Thread queue size for audio
+THREAD_QUEUE="2048"                            # Thread queue size for audio
 CRF="20"                                       # Constant rate factor of the video
-
 
 # Infinite loop
 while [ 1 ]
@@ -31,10 +39,10 @@ do
     -f image2 -stream_loop -1 -r 2 -i $IMAGE \
     -filter_complex \
     "[1:a][2:a] amix=inputs=2,volume=2.5 [audiooutput]; \
-     [0:v] overlay=x=25:y=(100),fps=fps=$FPS,scale=$RESOLUTION [inputvideo]; \
+     [0:v] overlay=x=$IMAGE_X:y=$IMAGE_Y,fps=fps=$FPS,scale=$RESOLUTION [inputvideo]; \
      [inputvideo] \
        drawtext=textfile=$MARQUEE:fontfile=$FONT:fontsize=(w * 0.03333333333333333):bordercolor=#000000:borderw=1:fontcolor=#FFFFFF:reload=1:y=(h * 0.05):x=w-mod(max(t\, 0) * (w + tw) / 20\, (w + tw)), \
-       drawtext=textfile=$TEXT:fontfile=$FONT:fontsize=(w * 0.03333333333333333):bordercolor=#000000:borderw=1:fontcolor=#FFFFFF:reload=1:y=(h-text_h-25):x=(170) \
+       drawtext=textfile=$TEXT:fontfile=$FONT:fontsize=(w * 0.03333333333333333):bordercolor=#000000:borderw=1:fontcolor=#FFFFFF:reload=1:y=(h-text_h-25):x=$TEXT_X \
     [videooutput]" \
     -acodec copy -acodec copy \
     -map [videooutput] -map [audiooutput] \
@@ -45,4 +53,3 @@ do
     -f flv "$RTMP_URL/$KEY"
     
 done
-
