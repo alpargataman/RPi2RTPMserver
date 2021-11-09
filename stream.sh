@@ -31,7 +31,7 @@ do
     -f image2 -stream_loop -1 -r 2 -i $IMAGE \
     -filter_complex \
     "[1:a][2:a] amix=inputs=2,volume=2.5 [audiooutput]; \
-     [0:v] overlay=x=25:y=(250),fps=fps=$FPS,scale=$RESOLUTION [inputvideo]; \
+     [0:v] overlay=x=25:y=(100),fps=fps=$FPS,scale=$RESOLUTION [inputvideo]; \
      [inputvideo] \
        drawtext=textfile=$MARQUEE:fontfile=$FONT:fontsize=(w * 0.03333333333333333):bordercolor=#000000:borderw=1:fontcolor=#FFFFFF:reload=1:y=(h * 0.05):x=w-mod(max(t\, 0) * (w + tw) / 20\, (w + tw)), \
        drawtext=textfile=$TEXT:fontfile=$FONT:fontsize=(w * 0.03333333333333333):bordercolor=#000000:borderw=1:fontcolor=#FFFFFF:reload=1:y=(h-text_h-25):x=(170) \
