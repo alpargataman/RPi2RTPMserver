@@ -1,37 +1,43 @@
 #! /bin/bash
 # Configuration of ffmpeg
 
-VBR="3000k"                                    # Video bitrate
+VBR="1000k"                                    # Video bitrate (480p -> 1000k, 720p -> 3000k)
 FPS="24"                                       # Video FPS up to 30
 QUAL="ultrafast"                               # FFMPEG preset quality
-RESOLUTION="848x480"                           # Video resolution
+RESOLUTION="848x480"                           # Video resolution (848x480, 1280x720)
 
 RTMP_URL="rtmp://a.rtmp.youtube.com/live2"     # RTMP server URL
 KEY="xxxx-xxxx-xxxx-xxxx"                      # Stream key
 
-# Use parenthesis to scale the image/text
+VIDEO="video.mp4"                              # Video path
+
+# Use parentheses to use Structural SImilarity Metric
+# more info at https://ffmpeg.org/ffmpeg-all.html#ssim
 # ex_image: y=(100)
 # ex_text: x=(250)
 
-VIDEO="video.mp4"                              # Video path
-IMAGE="image.png"                              # Cover path
-IMAGE_X="25"                                   # X position of cover
-IMAGE_Y="(100)"                                  # Y position of cover
+IMAGE="image.png"         # Cover path
+IMAGE_X="50"              # X position of cover
+IMAGE_Y="(100)"           # Y position of cover
 
-TEXT="livetext.txt"                            # Path to the TXT where the song data is
-TEXT_X="(250)"                                   # X position of the text
+TEXT="livetext.txt"       # Path to the TXT where the song data is
+TEXT_X="(350)"            # X position of the song data
+TEXT_Y="200"              # Y position of the song data
 
-MARQUEE="marquee.txt"                          # Path to the TXT with a marquee text
-FONT="FreeSerif.ttf"                           # Path to the font
-FONT_SIZE="20"                                 # Font size
-THREADS="4"                                    # Number of threadsusing to encode video and audio
-THREAD_QUEUE="2048"                            # Thread queue size for audio
-CRF="20"                                       # Constant rate factor of the video
+MARQUEE="marquee.txt"     # Path to the TXT with a marquee text
+MARQUEE_Y="0.1"           # Y position of the marquee text (0.01 - 0.9)
+
+FONT="FreeSerif.ttf"      # Path to the font
+FONT_SIZE="20"            # Font size
+
+THREADS="4"               # Number of threads used to encode video and audio
+THREAD_QUEUE="2048"       # Thread queue size for audio
+CRF="20"                  # Constant rate factor of the video
 
 # Infinite loop
 while [ 1 ]
 do
-    # change pulse for alsa is you are using it
+    # change pulse for alsa is you are using it (Not recommended)
     ffmpeg \
     -stream_loop -1 -i $VIDEO \
     -thread_queue_size $THREAD_QUEUE -f pulse -i default \
@@ -41,8 +47,8 @@ do
     "[1:a][2:a] amix=inputs=2,volume=2.5 [audiooutput]; \
      [0:v] overlay=x=$IMAGE_X:y=$IMAGE_Y,fps=fps=$FPS,scale=$RESOLUTION [inputvideo]; \
      [inputvideo] \
-       drawtext=textfile=$MARQUEE:fontfile=$FONT:fontsize=(w * 0.03333333333333333):bordercolor=#000000:borderw=1:fontcolor=#FFFFFF:reload=1:y=(h * 0.05):x=w-mod(max(t\, 0) * (w + tw) / 20\, (w + tw)), \
-       drawtext=textfile=$TEXT:fontfile=$FONT:fontsize=(w * 0.03333333333333333):bordercolor=#000000:borderw=1:fontcolor=#FFFFFF:reload=1:y=(h-text_h-25):x=$TEXT_X \
+       drawtext=textfile=$MARQUEE:fontfile=$FONT:fontsize=(w * 0.03333333333333333):bordercolor=#000000:borderw=1:fontcolor=#FFFFFF:reload=1:y=(h * $MARQUEE_Y):x=w-mod(max(t\, 0) * (w + tw) / 20\, (w + tw)), \
+       drawtext=textfile=$TEXT:fontfile=$FONT:fontsize=(w * 0.03333333333333333):bordercolor=#000000:borderw=1:fontcolor=#FFFFFF:reload=1:y=(h-text_h-$TEXT_Y):x=$TEXT_X \
     [videooutput]" \
     -acodec copy -acodec copy \
     -map [videooutput] -map [audiooutput] \
