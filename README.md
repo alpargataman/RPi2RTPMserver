@@ -12,15 +12,16 @@ Those files use some tools to make that possible. You have the list with all the
 
 ## Prerequisites (Step 1)
 
-* **ffmpeg**: process the whole stream
-* **mplayer**: plays audio files
-* **python3-pip**: needed to install sacad
-* **sacad**: gets album cover
-* **exiftool**: gets song information
-* **jq**: tranforms json files
-* **nkf**: network kanji filter
-* **Pulse Audio**: needed to get a better performance
-* **imagemagick**: converts and resizes album covers
+- **ffmpeg**: process the whole stream
+- **vlc**: VLC media player
+- **mplayer**: plays audio files
+- **python3-pip**: needed to install sacad
+- **sacad**: gets album cover
+- **exiftool**: gets song information
+- **jq**: tranforms json files
+- **nkf**: network kanji filter
+- **Pulse Audio**: needed to get a better performance
+- **imagemagick**: converts and resizes album covers
 
 To install all dependencies just execute `install_deps.sh` as super user.
 
