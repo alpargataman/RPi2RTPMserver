@@ -2,7 +2,7 @@
 
 # This script installs all dependencies for the project
 # It is run by the install script
-# It is run as root
+# It is run as superuser
 # Works on debian based systems
 
 echo "Installing dependencies..."
